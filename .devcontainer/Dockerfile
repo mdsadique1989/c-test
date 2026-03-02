@@ -1,14 +1,11 @@
-# Start from Microsoft’s official C++ dev container image
 FROM mcr.microsoft.com/devcontainers/cpp:latest
 
-# Install extra tools useful for learning and debugging C++
-RUN apt-get update && apt-get install -y \
+# For Alpine-based images, use apk instead of apt-get
+RUN apk update && apk add --no-cache \
     valgrind \
-    clang-format \
+    clang-extra-tools \
     cppcheck \
     gdb \
-    git-lfs \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    git-lfs
 
-# Initialize Git LFS so hooks are set up automatically
 RUN git lfs install --system
